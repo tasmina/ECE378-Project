@@ -1,0 +1,22 @@
+USB Input
+HOST (J5)
+PS2_CLK - F4
+PS2_DAT - B2
+PIC24FJ128
+
+
+PS/2 protocol
+11-bit words (start bit, data byte (LSB first), odd parity, and stop bit)
+Idle state is logic 1, 
+0xAA (self-test passed) signal when keyboard hooked up.
+PS/2 Scan codes
+if key held down, scan code will be sent every 100ms
+When key release, an F0 keyup code is sent (or E0)
+keyboard can only send data when both data and clock lines are high('1')
+
+clock line low
+11-bit word sent
+'0' start bit, 8 bit scan code (LSB first), then odd parity bit, and a '1' stop bit,
+11 clock transitions when data is sent
+data is valid on falling edge
+
