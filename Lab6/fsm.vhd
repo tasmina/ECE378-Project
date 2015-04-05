@@ -2,12 +2,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity fsm is
-    port(   resetn,w,Rx,Ry : in std_logic;
+    port(   resetn,w,Rx,Ry,clock: in std_logic;
             f : in std_logic_vector(2 downto 0);
             SM : out std_logic_vector(1 downto 0);
             E_A, E_G, E_IN, E_OUT, done, E_IR, Ex : out std_logic;
-            op: out std_logic_vector(3 downto 0);
-    );
+            op: out std_logic_vector(3 downto 0));
 end fsm;
 
 architecture bhv of fsm is
@@ -18,11 +17,11 @@ architecture bhv of fsm is
 begin
 
     --Transitions
-    Transitions: process(resetn, w, f)
+    Transitions: process(clock, resetn, w, f)
     begin
         if resetn = '0' then
-            y <= S1;
-        elsif (clock'event and clock = '1') then
+            y <= S1;  
+		  elsif (clock'event and clock = '1') then
             case y is
                 when S1 =>
                     if w = '1' then
@@ -40,7 +39,7 @@ begin
                         when "100" => y <= S4a;
                         when "101" => y <= S5a;
                         when "110" => y <= S6;
-                        when "111" => y <= S7;
+                        when others => y <= S7;
                     end case;
                     
                 when S3a => y <= S3b;
@@ -62,7 +61,7 @@ begin
 
 
     --Outputs
-    Outputs: process(w, f, Rx, Ry)
+    Outputs: process(y, w, f, Rx, Ry)
     begin
         --Initialize the output signals
         SM <= (others => '0');
@@ -90,27 +89,27 @@ begin
                         Ex <= '1';
                         
                     when "010" =>
-                        SM <= '1' and Ry;
+                        SM <= '1' & Ry;
                         Ex <= '1';
                     when "011" =>
-                        SM <= '1' and Rx;
+                        SM <= '1' & Rx;
                         E_A <= '1';
                     when "100" => 
-                        SM <= '1' and Rx;
+                        SM <= '1' & Rx;
                         E_A <= '1';
                     when "101" => 
-                        SM <= '1' and Rx;
+                        SM <= '1' & Rx;
                         E_A <= '1';
                     when "110" =>
-                        SM <= '1' and Rx;
+                        SM <= '1' & Rx;
                         op <= "0100";
                         E_G <= '1';
-                    when "111" =>
-                        SM <= '1' and Rx;
+                    when others =>
+                        SM <= '1' & Rx;
                         E_OUT <= '1';
                     end case;
             when S3a =>
-                SM <= '1' and Ry;
+                SM <= '1' & Ry;
                 E_G <= '1';
                 op <= "0110";
             when S3b =>
@@ -124,7 +123,7 @@ begin
                 SM <= "01";
                 Ex <= '1';
             when S5a =>
-                SM <= '1' and Ry
+                SM <= '1' & Ry;
                 E_G <= '1';
                 op <= "1110";
             when S5b =>

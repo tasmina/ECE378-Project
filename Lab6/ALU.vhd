@@ -59,8 +59,10 @@ begin
 			when "1110" => G <= A xor B;
 			when others => G <= A xnor B;
 end case;
-end process;
+end process;
+
 
 
 end Behavioral;
+
 

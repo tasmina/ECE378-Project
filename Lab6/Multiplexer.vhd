@@ -34,7 +34,7 @@ entity Multiplexer is
            B : in  STD_LOGIC_VECTOR (3 downto 0);
            C : in  STD_LOGIC_VECTOR (3 downto 0);
            D : in  STD_LOGIC_VECTOR (3 downto 0);
-           SM : in  STD_LOGIC_VECTOR (2 downto 0);
+           SM : in  STD_LOGIC_VECTOR (1 downto 0);
            BUS1 : out  STD_LOGIC_VECTOR (3 downto 0));
 end Multiplexer;
 
@@ -44,6 +44,6 @@ begin
     BUS1<= A when "00",
 			  B when "01",
 		     C when "10",
-		     D when others,
-end Behavioral;
+		     D when others;
 
+end Behavioral;
