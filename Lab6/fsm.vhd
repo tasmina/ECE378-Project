@@ -86,8 +86,7 @@ begin
                         E_IN <= '1'; 
                     when "001" =>
                         SM <= "00";
-                        Ex <= '1';
-                        
+                        Ex <= '1';                        
                     when "010" =>
                         SM <= '1' and Ry;
                         Ex <= '1';
