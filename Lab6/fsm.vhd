@@ -89,27 +89,27 @@ begin
                         Ex <= '1';
                         
                     when "010" =>
-                        SM <= '1' & Ry;
+                        SM <= '1' and Ry;
                         Ex <= '1';
                     when "011" =>
-                        SM <= '1' & Rx;
+                        SM <= '1' and Rx;
                         E_A <= '1';
                     when "100" => 
-                        SM <= '1' & Rx;
+                        SM <= '1' and Rx;
                         E_A <= '1';
                     when "101" => 
-                        SM <= '1' & Rx;
+                        SM <= '1' and Rx;
                         E_A <= '1';
                     when "110" =>
-                        SM <= '1' & Rx;
+                        SM <= '1' and Rx;
                         op <= "0100";
                         E_G <= '1';
                     when others =>
-                        SM <= '1' & Rx;
+                        SM <= '1' and Rx;
                         E_OUT <= '1';
                     end case;
             when S3a =>
-                SM <= '1' & Ry;
+                SM <= '1' and Ry;
                 E_G <= '1';
                 op <= "0110";
             when S3b =>
@@ -123,7 +123,7 @@ begin
                 SM <= "01";
                 Ex <= '1';
             when S5a =>
-                SM <= '1' & Ry;
+                SM <= '1' and Ry;
                 E_G <= '1';
                 op <= "1110";
             when S5b =>
